@@ -1,15 +1,36 @@
+//==============================================================================
+// Project: QtQuickPlayer
+// Author: Ivan Vasilev <ivan.v.vasilev at Gmail>
+//
+// A simple application demostrating QtQuick(QML) integration with gstreamer
+//
+// gst_bus_poller.cpp - a class to periodically pop messages from a gstreamer bsu
+//  bus. Doesn't do much right now except printing error messages
+//==============================================================================
+
+//==============================================================================
+// Includes
+//==============================================================================
 #include "gst_bus_poller.h"
 
+//==============================================================================
+// GstBusPoller Exported methods
+//==============================================================================
 GstBusPoller::GstBusPoller(GstBus *bus, QString name) : QObject(), m_Name(name), m_Bus(bus)
 {
+    g_object_ref(m_Bus);
     m_Timer.start(10, this);
 }
 
 GstBusPoller::~GstBusPoller()
 {
+    g_object_unref(m_Bus);
     m_Timer.stop();
 }
 
+//==============================================================================
+// GstBusPoller private methods
+//==============================================================================
 void GstBusPoller::timerEvent(QTimerEvent *event)
 {
     if (event->timerId() == m_Timer.timerId()) {

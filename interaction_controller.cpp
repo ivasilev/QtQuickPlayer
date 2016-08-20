@@ -1,7 +1,22 @@
+//==============================================================================
+// Project: QtQuickPlayer
+// Author: Ivan Vasilev <ivan.v.vasilev at Gmail>
+//
+// A simple application demostrating QtQuick(QML) integration with gstreamer
+//
+// interaction_controller.cpp - a class to handle QML<-->C++ interaction -
+//  mainly responding to user commands for now
+//
+//==============================================================================
+
+//==============================================================================
+// Includes
+//==============================================================================
 #include "interaction_controller.h"
 
-
-
+//==============================================================================
+// InteractionController Exported methods
+//==============================================================================
 InteractionController::InteractionController(QObject *window, GstElement* gstPlayer, bool autoplay) :
     QObject(window),
     m_GstPlayer(gstPlayer)
